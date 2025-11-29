@@ -31,7 +31,7 @@ local function draw(t)
   local card = t[n]
   t[n] = nil
   local suit = string.sub(card, -1)
-  card = string.sub(s, 1, -2)
+  card = string.sub(card, 1, -2)
   local value = 0
     if card == "J" or card == "Q" or card == "K" then
         value = 10
@@ -39,6 +39,7 @@ local function draw(t)
         value = 0
     else
         value = tonumber(card)
+    end
   return {suit,value}
 end
 
@@ -64,14 +65,15 @@ function drawButton(b, isPressed)
 end
 
 -- Checkt, ob der Knopfdruck innerhalb des Knopfes war
-function inside(button,x,y) return x>=b.x1 and x<=b.x2 and y>=b.y1 and y<=b.y2 end
+function inside(b,x,y) return x>=b.x1 and x<=b.x2 and y>=b.y1 and y<=b.y2 end
 
 function initializeGame(connectedPlayers)
-  deck = INITDECK
+  deck = {table.unpack(INITDECK)}
   shuffle(deck)
 end
 
 -- Game state
+initializeGame(1)
 local playerTotal = 0
 local dealerTotal = draw(deck)[2] + draw(deck)[2]
 playerTotal = draw(deck)[2] + draw(deck)[2]
