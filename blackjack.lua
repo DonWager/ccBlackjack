@@ -64,8 +64,8 @@ end
 
 -- Game state
 local playerTotal = 0
-local dealerTotal = drawCard() + drawCard()
-playerTotal = drawCard() + drawCard()
+local dealerTotal = draw() + draw()
+playerTotal = draw() + draw()
 
 local function drawUI()
   mon.clear()
@@ -81,7 +81,7 @@ while true do
   local ev, side, x, y = os.pullEvent("monitor_touch")
   if inside(btnHit,x,y) then
     drawButton(btnHit, true); sleep(0.12); drawButton(btnHit,false)
-    local v = drawCard(); playerTotal = playerTotal + v
+    local v = draw(); playerTotal = playerTotal + v
     drawUI()
     if playerTotal > 21 then
       mon.setCursorPos(2,6); mon.setTextColor(colors.red); mon.write("BUST! You lose.")
@@ -91,7 +91,7 @@ while true do
     drawButton(btnStand, true); sleep(0.12); drawButton(btnStand,false)
     -- simple dealer behavior: draw until 17
     while dealerTotal < 17 do
-      dealerTotal = dealerTotal + drawCard()
+      dealerTotal = dealerTotal + draw()
     end
     drawUI()
     if dealerTotal > 21 or playerTotal > dealerTotal then
