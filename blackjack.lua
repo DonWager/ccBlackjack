@@ -53,9 +53,9 @@ mon.clear()
 math.randomseed(os.time()+math.floor(os.time()*1000))
 
 -- Button Stuff
-local btnHit = {x1=1,y1=1,x2=9,y2=7,label="HIT"}
-local btnStand = {x1=11,y1=1,x2=19,y2=7,label="STAND"}
-local btnDouble = {x1=21,y2=1,x2=29,y2=7,label="DOUBLE"}
+local btnHit = {x1=1,y1=9,x2=9,y2=12,label="HIT"}
+local btnStand = {x1=11,y1=9,x2=19,y2=12,label="STAND"}
+local btnDouble = {x1=21,y2=9,x2=29,y2=12,label="DOUBLE"}
 
 -- Rendert Knopf auf Monitor
 function drawButton(b, isPressed)
@@ -84,22 +84,26 @@ playerTotal = draw(deck)[2] + draw(deck)[2]
 
 local function drawUI()
   mon.clear()
-  drawButton(btnHit,false); drawButton(btnStand,false)
+  drawButton(btnHit,false); drawButton(btnStand,false); drawButton(btnDouble,false)
 end
 
 drawUI()
 
 -- Handle touch events
 while true do
-  local ev, side, x, y = os.pullEvent("monitor_touch")
-  if inside(btnHit,x,y) then
-    drawButton(btnHit, true); sleep(0.12); drawButton(btnHit,false)
-    local v = draw(deck)[2]; playerTotal = playerTotal + v
-    drawUI()
-  elseif inside(btnStand,x,y) then
-    drawButton(btnStand, true); sleep(0.12); drawButton(btnStand,false)
-    drawUI()
-  end
+    local ev, side, x, y = os.pullEvent("monitor_touch")
+    if inside(btnHit,x,y) then
+        drawButton(btnHit, true); sleep(0.12); drawButton(btnHit,false)
+        local v = draw(deck)[2]; playerTotal = playerTotal + v
+        drawUI()
+    elseif inside(btnStand,x,y) then
+        drawButton(btnStand, true); sleep(0.12); drawButton(btnStand,false)
+        drawUI()
+    elseif inside(btnDouble,x,y) then
+        drawButton(btnDouble, true); sleep(0.12; drawButton(btnDouble,false)
+        local v = draw(deck)[2]; playerTotal = playerTotal + v
+        drawUI()
+    end
 end
 
 term.redirect(native)
