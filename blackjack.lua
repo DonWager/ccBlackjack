@@ -44,16 +44,20 @@ local function draw(t)
 end
 
 local players = {}
-local mon = peripheral.wrap("right") or error("Monitor not found on left")
+local mon = peripheral.wrap("right") or error("Monitor not found on right")
+print(mon.getSize()) --29 12
 local native = term.native()
 term.redirect(mon)
 mon.setTextScale(1)
 mon.clear()
 math.randomseed(os.time()+math.floor(os.time()*1000))
-local btnHit = {x1=2,y1=8,x2=12,y2=10,label="HIT"}
-local btnStand = {x1=14,y1=8,x2=24,y2=10,label="STAND"}
 
--- Rendet Knopf auf Monitor
+-- Button Stuff
+local btnHit = {x1=1,y1=1,x2=9,y2=7,label="HIT"}
+local btnStand = {x1=11,y1=1,x2=19,y2=7,label="STAND"}
+local btnDouble = {x1=21,y2=1,x2=29,y2=7,label="DOUBLE"}
+
+-- Rendert Knopf auf Monitor
 function drawButton(b, isPressed)
   local bg = isPressed and colors.gray or colors.lightGray
   paintutils.drawFilledBox(b.x1,b.y1,b.x2,b.y2,bg)
@@ -80,8 +84,6 @@ playerTotal = draw(deck)[2] + draw(deck)[2]
 
 local function drawUI()
   mon.clear()
-  mon.setCursorPos(2,2); mon.setTextColor(colors.white); mon.write("Dealer: "..dealerTotal)
-  mon.setCursorPos(2,4); mon.setTextColor(colors.white); mon.write("Player: "..playerTotal)
   drawButton(btnHit,false); drawButton(btnStand,false)
 end
 
@@ -94,25 +96,9 @@ while true do
     drawButton(btnHit, true); sleep(0.12); drawButton(btnHit,false)
     local v = draw(deck)[2]; playerTotal = playerTotal + v
     drawUI()
-    if playerTotal > 21 then
-      mon.setCursorPos(2,6); mon.setTextColor(colors.red); mon.write("BUST! You lose.")
-      break
-    end
   elseif inside(btnStand,x,y) then
     drawButton(btnStand, true); sleep(0.12); drawButton(btnStand,false)
-    -- simple dealer behavior: draw until 17
-    while dealerTotal < 17 do
-      dealerTotal = dealerTotal + draw(deck)[2]
-    end
     drawUI()
-    if dealerTotal > 21 or playerTotal > dealerTotal then
-      mon.setCursorPos(2,6); mon.setTextColor(colors.green); mon.write("You win!")
-    elseif playerTotal == dealerTotal then
-      mon.setCursorPos(2,6); mon.setTextColor(colors.yellow); mon.write("Push.")
-    else
-      mon.setCursorPos(2,6); mon.setTextColor(colors.red); mon.write("You lose.")
-    end
-    break
   end
 end
 
