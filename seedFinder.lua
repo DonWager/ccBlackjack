@@ -43,13 +43,20 @@ function readAutocomplete()
     local input = ""
     while true do
         local event, key = os.pullEvent("char")
-        if key == "\n" then break end
-        input = input .. key
-        term.write(key) -- Echo the character
+
+        if key == "\n" then
+            break
+        elseif key == "\27", input = input:sub(1, -2) -- Handle backspace
+            term.write("\b \b") -- Move back, print space, and move back again
+        else
+            input = input .. key
+            term.write(key) -- Echo the character
+        end
 
         -- Get suggestions
         local suggestions = autocomplete(input)
         if #suggestions > 0 then
+            term.write("\n") -- New line for suggestions
             for _, suggestion in ipairs(suggestions) do
                 term.write(suggestion .. "\n")
             end
@@ -57,6 +64,7 @@ function readAutocomplete()
         end
     end
 end
+
 
 function main()
     while true do
