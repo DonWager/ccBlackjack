@@ -43,13 +43,13 @@ function readAutocomplete()
     local input = ""
     term.clear()
     term.setCursorPos(1,1)
-    term.write(">")
+    term.write("> _")
     while true do
         local event, key = os.pullEvent("char")
         if key == "\n" then
             return input
         elseif key == "\b" then
-            local input = string.sub(input, 1, -2) 
+            input = string.sub(input, 1, -2) 
         else
             input = input .. key
         end
