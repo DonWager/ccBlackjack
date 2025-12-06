@@ -46,7 +46,8 @@ function readAutocomplete()
 
         if key == "\n" then
             break
-        elseif key == "\27", input = input:sub(1, -2) -- Handle backspace
+        elseif key == "\27" then
+            input = input:sub(1, -2) -- Handle backspace
             term.write("\b \b") -- Move back, print space, and move back again
         else
             input = input .. key
