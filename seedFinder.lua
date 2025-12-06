@@ -32,7 +32,6 @@ end
 function autocomplete(input)
     local suggestions = {}
     for name, data in pairs(seedIndex) do
-        print(name)
         if string.sub(name, 1, string.len(input)) == input then
             table.insert(suggestions, name)
         end
