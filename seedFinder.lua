@@ -45,12 +45,13 @@ function readAutocomplete()
     while true do
         term.clear()
         term.setCursorPos(1,1)
+        term.print("Search for Essence:")
         term.write("> " .. input .. "_")
 
         local suggestions = autocomplete(input)
         if #suggestions > 0 then
             print("")
-            for i = 1, #suggestions do print(suggestions[i]) end
+            for i = 1, math.min(17, #suggestions) do print(suggestions[i]) end
             term.setCursorPos(4 + string.len(input), 1)
         end
         
