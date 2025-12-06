@@ -77,10 +77,10 @@ function readAutocomplete()
             elseif a == keys.enter then
                 if selectedSuggestion == 0 then
                     if #suggestions == 1 then
-                        return suggestions[1]
+                        return suggestions[1], seedIndex[suggestions[1]]
                     end
                 else
-                    return suggestions[selectedSuggestion]
+                    return suggestions[selectedSuggestion], seedIndex[suggestions[selectedSuggestion]]
                 end
             elseif a == keys.down then
                 selectedSuggestion = math.min(selectedSuggestion + 1, #suggestions, 17)
@@ -95,10 +95,11 @@ end
 function main()
     term.clear()
     while true do
-        local query = readAutocomplete()
+        local name, data = readAutocomplete()
         term.clear()
         term.setCursorPos(1,1)
         print("If the lights would work, you would have Searched for: " .. query)
+        print("Position in the " .. data.row .. " row, to the " .. data.dir .. " on position " .. data.pos)
         os.sleep(10)
     end
 end
