@@ -46,7 +46,7 @@ function readAutocomplete()
     while true do
         term.clear()
         term.setCursorPos(1,1)
-        term.print("Search for Essence:")
+        print("Search for Essence:")
         term.write("> " .. input)
 
         local suggestions = autocomplete(input)
