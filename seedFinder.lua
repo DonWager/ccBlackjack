@@ -41,6 +41,7 @@ end
 
 function readAutocomplete()
     local input = ""
+    term.setCursorPos(1,1)
     while true do
         local event, key = os.pullEvent("char")
         term.clear()
@@ -58,7 +59,7 @@ function readAutocomplete()
                 term.write(suggestion .. "\n")
             end
         end
-    term.write(input) -- Reprint the prompt with current input
+    term.write(">" .. input) -- Reprint the prompt with current input
     end
 end
 
