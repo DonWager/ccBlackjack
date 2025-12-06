@@ -90,6 +90,18 @@ function readAutocomplete()
     end
 end
 
+function animateRow(row, pos, light)
+    for i=1,pos+1 do
+        if i ~= pos+1 then
+            row[i].setOutput("bottom",true)
+        end
+        if i ~= 1 then
+            row[i-1].setOutput("bottom",false)
+        end
+        light.setOutput("bottom",~light.getOutput("bottom"))
+        os.sleep(0.1)
+    end
+end
 
 function main()
     term.clear()
@@ -97,9 +109,20 @@ function main()
         local name, data = readAutocomplete()
         term.clear()
         term.setCursorPos(1,1)
-        print("If the lights would work, you would have Searched for: " .. name)
-        print("In the " .. data.row .. " row, to the " .. data.dir .. " on position " .. data.pos)
-        os.sleep(10)
+        print("Searching for: " .. name)
+        print(data.row .. " row, to the " .. data.dir .. " at position " .. data.pos)
+        if data.row == "front" then
+            animateRow(frontRow, data.pos, data.light)
+        elseif data.row == "left" then
+            animateRow(frontRow, 16, data.light)
+            animateRow(leftRow, data.pos, data.light)
+        elseif data.row == "right" then
+            animateRow(frontRow, 16, data.light)
+            animateRow(rightRow, data.pos, data.light)
+        elseif data.row == "back" then
+            animateRow(frontRow, 16, data.light)
+            animateRow(backRow, data.pos, data.light)
+        end
     end
 end
 
