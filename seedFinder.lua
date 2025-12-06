@@ -98,7 +98,7 @@ function main()
         local name, data = readAutocomplete()
         term.clear()
         term.setCursorPos(1,1)
-        print("If the lights would work, you would have Searched for: " .. query)
+        print("If the lights would work, you would have Searched for: " .. name)
         print("Position in the " .. data.row .. " row, to the " .. data.dir .. " on position " .. data.pos)
         os.sleep(10)
     end
