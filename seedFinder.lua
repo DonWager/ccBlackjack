@@ -41,11 +41,18 @@ end
 
 function readAutocomplete()
     local input = ""
-
     while true do
         term.clear()
         term.setCursorPos(1,1)
         term.write("> " .. input .. "_")
+
+        local suggestions = autocomplete(input)
+        if #suggestions > 0 then
+            print("")
+            for _, suggestion in ipairs(suggestions) do print(suggestion) end
+            term.setCursorPos(4 + string.len(input), 1)
+        end
+        
         local event, a = os.pullEvent()
         if event == "char" then
             input = input .. a
@@ -55,14 +62,6 @@ function readAutocomplete()
             elseif a == keys.enter then
                 return input
             end
-        end
-        -- Get suggestions
-        local suggestions = autocomplete(input)
-        term.clear()
-        if #suggestions > 0 then
-            print("")
-            for _, suggestion in ipairs(suggestions) do print(suggestion) end
-            term.setCursorPos(4 + string.len(input), 1)
         end
     end
 end
