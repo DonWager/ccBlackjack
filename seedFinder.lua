@@ -42,27 +42,44 @@ end
 
 function readAutocomplete()
     local input = ""
+    local selectedSuggetion = 0
     while true do
         term.clear()
         term.setCursorPos(1,1)
         term.print("Search for Essence:")
-        term.write("> " .. input .. "_")
+        term.write("> " .. input)
 
         local suggestions = autocomplete(input)
         if #suggestions > 0 then
             print("")
-            for i = 1, math.min(17, #suggestions) do print(suggestions[i]) end
-            term.setCursorPos(4 + string.len(input), 1)
+            for i = 1, math.min(17, #suggestions) do
+                if i == selectedSuggestion then
+                    term.setBackgroundColor(colors.white)
+                    term.setTextColor(colors.black)
+                    print(suggestions[i]) 
+                    term.setBackgroundColor(colors.black)
+                    term.setTextColor(colors.white)
+                else
+                    print(suggestion[i])
+                end
+            end
         end
-        
+            
+        term.setCursorPos(3 + string.len(input), 1)
+        term.setCursorBlink(true)
         local event, a = os.pullEvent()
         if event == "char" then
+            selectedSuggestion = 0
             input = input .. a
         elseif event == "key" then
             if a == keys.backspace then
                 if #input > 0 then input = string.sub(input, 1, -2) end
             elseif a == keys.enter then
                 return input
+            elseif a == keys.down then
+                selectedSuggestion = min(selectedSuggestion + 1, #suggestions)
+            elseif a == keys.up then
+                selectedSuggestion = max(selectedSuggestion - 1, 0)
             end
         end
     end
