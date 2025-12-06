@@ -65,7 +65,7 @@ function readAutocomplete()
             end
         end
             
-        term.setCursorPos(3 + string.len(input), 1)
+        term.setCursorPos(3 + string.len(input), 2)
         term.setCursorBlink(true)
         local event, a = os.pullEvent()
         if event == "char" then
