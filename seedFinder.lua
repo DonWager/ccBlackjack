@@ -77,9 +77,9 @@ function readAutocomplete()
             elseif a == keys.enter then
                 return input
             elseif a == keys.down then
-                selectedSuggestion = min(selectedSuggestion + 1, #suggestions)
+                selectedSuggestion = math.min(selectedSuggestion + 1, #suggestions, 17)
             elseif a == keys.up then
-                selectedSuggestion = max(selectedSuggestion - 1, 0)
+                selectedSuggestion = math.max(selectedSuggestion - 1, 0)
             end
         end
     end
