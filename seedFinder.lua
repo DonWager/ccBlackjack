@@ -102,12 +102,11 @@ function animateRow(row, pos, light, sideRow)
                     row[i-1].setOutput("bottom",false)
                 end
                 light.setOutput("bottom", not light.getOutput("bottom"))
-                os.sleep(0.30)
             end
         end
         for i=1,pos+1 do
             if i <= pos then
-                row[i].setOutput("bottom",true)
+                row[i].setAnalogOutput("bottom",1)
             end
             if i > 1 then
                 row[i-1].setOutput("bottom",false)
@@ -131,13 +130,13 @@ function main()
             animateRow(frontRow, data.pos, data.light)
         elseif data.row == "left" then
             animateRow(frontRow, 16, data.light)
-            animateRow(leftRow, data.pos, data.light)
+            animateRow(leftRow, data.pos, data.light, true)
         elseif data.row == "right" then
             animateRow(frontRow, 16, data.light)
-            animateRow(rightRow, data.pos, data.light)
+            animateRow(rightRow, data.pos, data.light, true)
         elseif data.row == "back" then
             animateRow(frontRow, 16, data.light)
-            animateRow(backRow, data.pos, data.light)
+            animateRow(backRow, data.pos, data.light, true)
         end
     end
 end
