@@ -103,7 +103,7 @@ function animateRow(row, pos, light)
             os.sleep(0.15)
         end
     end
-    lights.setOutput("bottom",false)
+    light.setOutput("bottom",false)
 end
 
 function main()
