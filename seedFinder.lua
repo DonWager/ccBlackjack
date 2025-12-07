@@ -98,7 +98,7 @@ function animateRow(row, pos, light)
         if i ~= 1 then
             row[i-1].setOutput("bottom",false)
         end
-        light.setOutput("bottom",~light.getOutput("bottom"))
+        light.setOutput("bottom", not light.getOutput("bottom"))
         os.sleep(0.1)
     end
 end
