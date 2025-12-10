@@ -92,16 +92,16 @@ end
 
 function animateRow(row, pos, light, sideRow)
     sideRow = sideRow or false
-    for j=1, 20 do
+    for j=1, 15 do
         if sideRow then
             for i=1,18 do
                 if i <= pos then
-                    firstRow[i].setAnalogOutput("bottom",1)
+                    frontRow[i].setAnalogOutput("bottom",1)
                 end
                 if i > 1 then
-                    firstRow[i-1].setOutput("bottom",false)
+                    frontRow[i-1].setOutput("bottom",false)
                 end
-                light.setOutput("bottom", not light.getOutput("bottom"))
+                os.sleep(0.30)
             end
         end
         for i=1,pos+1 do
